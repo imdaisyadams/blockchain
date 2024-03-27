@@ -88,6 +88,7 @@ impl Chain {
             timestamp: time::now().to_timespec().sec,
             nonce: 0,
             pre_hash: self.last_hash(),
+            merkle: String,
             difficulty: self.difficulty,
         };
 
@@ -169,6 +170,14 @@ impl Chain {
         let vec_result = result.to_vec();
 
         Chain::hex_to_string(vec_result.as_slice())
+    }
+
+    pub fn hex_to_string(vec_result: &[u8]) -> String {
+        let mut s = String::new();
+        for b in vec_result {
+            write!(&mut s, "{:x}", b).expect("unable to write");
+        }
+        s
     }
 
 }
